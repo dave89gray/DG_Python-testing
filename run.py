@@ -18,37 +18,31 @@ class Employee:
     def apply_raise(self):
         self.pay = int(self.pay * self.raise_amount)
 
-class Developer(Employee):
-    raise_amount = 1.10
+    def __repr__(self):
+        return "Employee('{}', '{}', {})".format(self.first, self.last, self.pay)
 
-    def __init__(self, first, last, pay, prog_lang):
-        super().__init__(first, last, pay)
-        self.prog_lang = prog_lang
+    def __str__(self):
+        return '{} - {}'.format(self.fullname(), self.email)
+        
+    def __add__(self, other):
+        return self.pay + other.pay
 
-class Manager(Employee):
+    def __len__(self):
+        return len(self.fullname())
 
-    def __init__(self, first, last, pay, employees=None):
-        super().__init__(first, last, pay)
-        if employees is None:
-            self.employees = []
-        else:
-            self.employees = employees
+emp_1 = Employee('David', 'Gray', 50000)
+emp_2 = Employee('Test', 'User', 60000)
 
-    def add_emp(self, emp):
-        if emp not in self.employees:
-            self.employees.append(emp)
-    
-    def remove_emp(self, emp):
-        if emp in self.employees:
-            self.employees.remove(emp)
+print(len(emp_1))
 
-    def print_emps(self):
-        for emp in self.employees:
-            print('-->', emp.fullname())
+print('test'.__len__())
 
-dev_1 = Developer('David', 'Gray', 50000, 'Python')
-dev_2 = Developer('Test', 'User', 60000, 'Java')
+#print(emp_1 + emp_2)
 
-mgr_1 = Manager('Sue', 'Smith', 90000, [dev_1])
+#print(emp_1)
 
-print(issubclass(Manager, Developer))
+#print(repr(emp_1))
+#print(str(emp_1))
+##print(emp_1.__repr__())
+#print(emp_1.__str__())
+
